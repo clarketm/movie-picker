@@ -1,0 +1,29 @@
+{
+  "name": "movie-picker",
+  "description": "Movie Picker",
+  "version": "1.0.0",
+  "author": "Travis Clarke <travis.m.clarke@gmail.com>",
+  "dependencies": {
+    "gatsby": "^1.6.5",
+    "gatsby-link": "^1.6.5",
+    "gatsby-plugin-react-helmet": "^1.0.1",
+    "whatwg-fetch": "^2.0.3"
+  },
+  "keywords": [
+    "movie",
+    "netflix"
+  ],
+  "license": "MIT",
+  "main": "n/a",
+  "scripts": {
+    "build": "gatsby build",
+    "css": "node-sass src/layouts/css/style.css --output-style compressed",
+    "develop": "gatsby develop",
+    "format": "prettier --trailing-comma es5 --no-semi --single-quote --write 'src/**/*.js'",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "node-sass": "^4.5.3",
+    "prettier": "^1.5.2"
+  }
+}
