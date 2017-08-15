@@ -4,10 +4,10 @@
   "version": "1.0.0",
   "author": "Travis Clarke <travis.m.clarke@gmail.com>",
   "dependencies": {
-    "gatsby": "^1.6.5",
-    "gatsby-link": "^1.6.5",
-    "gatsby-plugin-react-helmet": "^1.0.1",
-    "halogen": "^0.2.0",
+    "gatsby": "^1.8.10",
+    "gatsby-link": "^1.6.7",
+    "gatsby-plugin-react-helmet": "^1.0.2",
+    "react-loading": "^0.1.4",
     "whatwg-fetch": "^2.0.3"
   },
   "keywords": [
@@ -24,7 +24,7 @@
   "main": "webtask/movie-picker/movie-picker.js",
   "scripts": {
     "build": "gatsby build",
-    "css": "node-sass src/layouts/css/style.scss src/layouts/css/style.css --output-style compressed",
+    "css": "node-sass src/css/style.scss src/css/style.css --output-style compressed",
     "develop": "gatsby develop",
     "format": "prettier --trailing-comma es5 --no-semi --single-quote --write 'src/**/*.js'",
     "test": "echo \"Error: no test specified\" && exit 1"
