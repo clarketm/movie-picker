@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import {callApi, GENRES, PROFILES, RATINGS} from '../utils'
+import {callApi, GENRES, PROFILES, RATINGS} from '../utils';
+import Loader from "halogen/PulseLoader"
 
 class IndexPage extends Component {
     constructor(props) {
@@ -15,6 +16,7 @@ class IndexPage extends Component {
             director: '',
             actor: '',
             keyword: '',
+            isLoading: false,
             _Recommendation: null
         };
         this.handleChange = this.handleChange.bind(this);
@@ -26,6 +28,10 @@ class IndexPage extends Component {
         this.setState({_Recommendation: Recommendation});
     }
 
+    setLoading(status) {
+        this.setState({isLoading: status});
+        this.state._Recommendation.setState({isLoading: status});
+    }
 
     handleSubmit(event) {
         event.preventDefault();
@@ -43,9 +49,12 @@ class IndexPage extends Component {
             params.append("actor", this.state.actor);
             params.append("keyword", this.state.keyword);
         }
+
+        this.setLoading(true);
         Promise.resolve(callApi(params)).then((result) => {
             console.log(result);
             this.state._Recommendation.addContent(result);
+            this.setLoading(false);
         });
     }
 
@@ -146,7 +155,7 @@ class IndexPage extends Component {
                     </div>}
 
                     <div className="text-right">
-                        <input type="submit" value="Submit"/>
+                        <input type="submit" value="Submit" disabled={this.state.isLoading}/>
                     </div>
                 </form>
                 <hr/>
@@ -160,6 +169,7 @@ class Recommendation extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            isLoading: false,
             content: null
         }
     }
@@ -173,8 +183,13 @@ class Recommendation extends Component {
     render() {
         return (
             <section>
+                {this.state.isLoading &&
+                <Loader class color="#1d6dcd" size="10rem" margin="4rem" className="text-center"/>
+                ||
                 <div dangerouslySetInnerHTML={{__html: this.state.content}}></div>
+                }
             </section>
+
         )
     }
 }
