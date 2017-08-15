@@ -1,0 +1,75 @@
+[
+  {
+    "name": "travis",
+    "genre": [
+      ["comedy", 2],
+      ["documentary", 1],
+      ["acclaimed", 3],
+      ["scifi", 4],
+      ["thriller", 6],
+    ],
+    "movies": "true",
+    "tv": "false",
+    "lowrating": "3.0",
+    "highrating": "5.0",
+    "director": "none",
+    "actor": "none",
+    "keyword": "none",
+  }, {
+  "name": "jade",
+  "genre": [
+    ["action", 1],
+    ["documentary", 2],
+    ["drama", 2],
+    ["horror", 3],
+    ["thriller", 4]
+  ],
+  "movies": "true",
+  "tv": "false",
+  "lowrating": "3.0",
+  "highrating": "5.0",
+  "director": "none",
+  "actor": "none",
+  "keyword": "none",
+}, {
+  "name": "eric",
+  "genre": [
+    ["foreign", 1],
+    ["documentary", 4],
+    ["classic", 3],
+    ["tv", 4]
+  ],
+  "movies": "true",
+  "tv": "true",
+  "lowrating": "2.0",
+  "highrating": "5.0",
+  "director": "none",
+  "actor": "none",
+  "keyword": "none"
+}, {
+  "name": "terri",
+  "genre": [
+    ["romantic", 3],
+    ["tv", 5],
+    ["drama", 2],
+    ["gay", 2]
+  ],
+  "movies": "true",
+  "tv": "false",
+  "lowrating": "1.0",
+  "highrating": "5.0",
+  "director": "none",
+  "actor": "none",
+  "keyword": "none",
+}, {
+  "name": "default",
+  "genre": "all",
+  "movies": "true",
+  "tv": "false",
+  "lowrating": "1.0",
+  "highrating": "5.0",
+  "director": "none",
+  "actor": "none",
+  "keyword": "none"
+}]
+
