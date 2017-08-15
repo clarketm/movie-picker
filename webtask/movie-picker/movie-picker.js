@@ -18,7 +18,7 @@ const MongoClient = require('mongodb').MongoClient;
  * @webtask_data actor        - actor
  * @webtask_data keyword      - keyword
  *
- *  * EXAMPLE (cUrl):
+ * EXAMPLE (cUrl):
  *
  * // Retrieve a movie recommendation for the "Travis" profile
  * curl -s -XPOST --data "profile=travis" \
@@ -128,7 +128,8 @@ module.exports = function (context, cb) {
             }
         }
         const randomIndex = ~~(Math.random() * weightedGenreArray.length);
-        return weightedGenreArray[randomIndex];
+        const genre = weightedGenreArray[randomIndex];
+        return genre
     }
 
 };
