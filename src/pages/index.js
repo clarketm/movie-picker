@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {callApi, GENRES, PROFILES, RATINGS} from '../utils';
-import Loader from "halogen/PulseLoader"
+import ReactLoading from 'react-loading';
 
 class IndexPage extends Component {
     constructor(props) {
@@ -184,9 +184,13 @@ class Recommendation extends Component {
         return (
             <section>
                 {this.state.isLoading &&
-                <Loader class color="#1d6dcd" size="10rem" margin="4rem" className="text-center"/>
+                    <section className="text-center">
+                            <ReactLoading className="block-center" type="bars" color="#1d6dcd" height='15rem' width='15rem' delay="0" />
+                    </section>
                 ||
-                <div dangerouslySetInnerHTML={{__html: this.state.content}}></div>
+                    <section>
+                        <div dangerouslySetInnerHTML={{__html: this.state.content}}></div>
+                    </section>
                 }
             </section>
 
