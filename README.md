@@ -1,2 +1,2 @@
 # Netflix Movie Picker
-A better explanation coming soon! ;)
+Check out the [demo](http://movie.travismclarke.com/)!
