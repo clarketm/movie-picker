@@ -155,7 +155,7 @@ class IndexPage extends Component {
                     </div>}
 
                     <div className="text-right">
-                        <input type="submit" value="Submit" disabled={this.state.isLoading}/>
+                        <button type="submit" className="button" disabled={this.state.isLoading}>Search</button>
                     </div>
                 </form>
                 <hr/>
