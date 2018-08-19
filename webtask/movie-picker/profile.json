@@ -105,7 +105,7 @@
   },
   {
     "name": "default",
-    "genre": "all",
+    "genre": 0,
     "content_kind": "movie",
     "minimum_imdb": -1,
     "minimum_rt": -1
