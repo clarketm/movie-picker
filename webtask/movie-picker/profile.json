@@ -2,74 +2,113 @@
   {
     "name": "travis",
     "genre": [
-      ["comedy", 2],
-      ["documentary", 1],
-      ["acclaimed", 3],
-      ["scifi", 4],
-      ["thriller", 6],
+      [
+        "comedy",
+        2
+      ],
+      [
+        "documentary",
+        1
+      ],
+      [
+        "action-and-adventure",
+        3
+      ],
+      [
+        "science-fiction",
+        4
+      ],
+      [
+        "thriller",
+        6
+      ]
     ],
-    "movies": "true",
-    "tv": "false",
-    "lowrating": "3.0",
-    "highrating": "5.0",
-    "director": "none",
-    "actor": "none",
-    "keyword": "none",
-  }, {
-  "name": "jade",
-  "genre": [
-    ["action", 1],
-    ["documentary", 2],
-    ["drama", 2],
-    ["horror", 3],
-    ["thriller", 4]
-  ],
-  "movies": "true",
-  "tv": "false",
-  "lowrating": "3.0",
-  "highrating": "5.0",
-  "director": "none",
-  "actor": "none",
-  "keyword": "none",
-}, {
-  "name": "eric",
-  "genre": [
-    ["foreign", 1],
-    ["documentary", 4],
-    ["classic", 3],
-    ["tv", 4]
-  ],
-  "movies": "true",
-  "tv": "true",
-  "lowrating": "2.0",
-  "highrating": "5.0",
-  "director": "none",
-  "actor": "none",
-  "keyword": "none"
-}, {
-  "name": "terri",
-  "genre": [
-    ["romantic", 3],
-    ["tv", 5],
-    ["drama", 2],
-    ["gay", 2]
-  ],
-  "movies": "true",
-  "tv": "false",
-  "lowrating": "1.0",
-  "highrating": "5.0",
-  "director": "none",
-  "actor": "none",
-  "keyword": "none",
-}, {
-  "name": "default",
-  "genre": "all",
-  "movies": "true",
-  "tv": "false",
-  "lowrating": "1.0",
-  "highrating": "5.0",
-  "director": "none",
-  "actor": "none",
-  "keyword": "none"
-}]
+    "content_kind": "movie",
+    "minimum_imdb": 8,
+    "minimum_rt": 80
+  },
+  {
+    "name": "jade",
+    "genre": [
+      [
+        "action-and-adventure",
+        1
+      ],
+      [
+        "documentary",
+        2
+      ],
+      [
+        "drama",
+        2
+      ],
+      [
+        "horror",
+        3
+      ],
+      [
+        "thriller",
+        4
+      ]
+    ],
+    "content_kind": "movie",
+    "minimum_imdb": 9,
+    "minimum_rt": 90
+  },
+  {
+    "name": "eric",
+    "genre": [
+      [
+        "fantasy",
+        1
+      ],
+      [
+        "documentary",
+        4
+      ],
+      [
+        "cult",
+        3
+      ],
+      [
+        "history",
+        4
+      ]
+    ],
+    "content_kind": "both",
+    "minimum_imdb": 7,
+    "minimum_rt": 70
+  },
+  {
+    "name": "terri",
+    "genre": [
+      [
+        "romance",
+        3
+      ],
+      [
+        "reality",
+        5
+      ],
+      [
+        "drama",
+        2
+      ],
+      [
+        "lgbtq",
+        2
+      ]
+    ],
+    "content_kind": "show",
+    "minimum_imdb": 6,
+    "minimum_rt": 60
+  },
+  {
+    "name": "default",
+    "genre": "all",
+    "content_kind": "movie",
+    "minimum_imdb": -1,
+    "minimum_rt": -1
+  }
+]
 
