@@ -21,8 +21,7 @@ const TemplateWrapper = ({ children }) => {
           { name: "description", content: "Netflix Movie Picker" },
           {
             name: "keywords",
-            content:
-              "travismclarke, netflix, gatsbyjs, movie, picker, movie-picker, roulette, netflix roulette"
+            content: "travismclarke, netflix, gatsbyjs, movie, picker, movie-picker, roulette, netflix roulette"
           }
         ]}
       />

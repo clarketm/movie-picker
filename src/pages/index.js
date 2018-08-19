@@ -8,14 +8,11 @@ class IndexPage extends Component {
     this.state = {
       profile: "default",
       custom: false,
-      genre: -1,
+      genre: 0, // "All Genres"
       movie: true,
       show: false,
-      minimum_imdb: 9,
-      minimum_rt: 90,
-      director: "",
-      actor: "",
-      keyword: "",
+      minimum_imdb: 9, // "> 9"
+      minimum_rt: 90, // " > 90%"
       isLoading: false,
       _Recommendation: null
     };
@@ -24,8 +21,7 @@ class IndexPage extends Component {
   }
 
   componentDidMount() {
-    const { Recommendation } = this.refs;
-    this.setState({ _Recommendation: Recommendation });
+    this.setState({ _Recommendation: this.Recommendation });
   }
 
   setLoading(status) {
@@ -35,41 +31,63 @@ class IndexPage extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    let params = new URLSearchParams();
+    let body = {};
+    let content_kind;
 
     if (!this.state.custom) {
-      params.append("profile", this.state.profile);
+      body.profile = this.state.profile;
     } else {
       // genre
-      if (this.state.genre !== "all") {
-        params.append("genre", this.state.genre);
+      if (this.state.genre !== 0) {
+        body.genre = Number(this.state.genre);
       }
 
       // content_kind
       if (this.state.movie && this.state.show) {
-        params.append("content_kind", "both");
+        content_kind = "both";
       } else if (this.state.movie) {
-        params.append("content_kind", "movie");
+        content_kind = "movie";
       } else if (this.state.show) {
-        params.append("content_kind", "show");
+        content_kind = "show";
       }
+      body.content_kind = content_kind;
 
       // minimum_imdb
-      if (this.state.minimum_imdb !== -1) {
-        params.append("minimum_imdb", this.state.minimum_imdb);
+      if (this.state.minimum_imdb !== 0) {
+        body.minimum_imdb = Number(this.state.minimum_imdb);
       }
 
       // minimum_rt
-      if (this.state.minimum_imdb !== -1) {
-        params.append("minimum_rt", this.state.minimum_rt);
+      if (this.state.minimum_imdb !== 0) {
+        body.minimum_rt = Number(this.state.minimum_rt);
       }
     }
 
-    console.log(params.toString());
-
     this.setLoading(true);
-    Promise.resolve(callApi(params)).then(result => {
+
+    Promise.resolve(callApi(body)).then(result => {
       console.log(result);
+
+      // result
+      // {
+      //   "id": "7f8f07f3-41a6-4aa3-8b6e-c456766d0e70",
+      //   "slug": "railroad-tigers-2016",
+      //   "title": "Railroad Tigers",
+      //   "overview": "A railroad worker in China in 1941 leads a team of freedom fighters against the Japanese in order to get food for the poor.",
+      //   "tagline": "Roaring soon",
+      //   "classification": null,
+      //   "runtime": 124,
+      //   "released_on": "2016-12-23T00:00:00",
+      //   "has_poster": true,
+      //   "has_backdrop": true,
+      //   "imdb_rating": 5.9,
+      //   "rt_critics_rating": 39,
+      //   "genres": [5, 9, 35],
+      //   "watchlisted": false,
+      //   "seen": false,
+      //   "content_type": "m"
+      // }
+
       this.state._Recommendation.addContent(result);
       this.setLoading(false);
     });
@@ -80,11 +98,7 @@ class IndexPage extends Component {
     const value = target.type === "checkbox" ? target.checked : target.value;
     const name = target.name;
 
-    if (
-      target.type === "checkbox" &&
-      this.state.movie !== this.state.show &&
-      value === false
-    ) {
+    if ((name === "movie" || name === "show") && this.state.movie !== this.state.show && value === false) {
       // Ensure at least one "content_kind" is selected!
       return;
     }
@@ -107,6 +121,7 @@ class IndexPage extends Component {
                 onChange={this.handleChange}
                 type="checkbox"
                 value={this.state.custom}
+                checked={this.state.custom}
               />
             </div>
           </div>
@@ -116,14 +131,9 @@ class IndexPage extends Component {
               <div className="row">
                 <div className="column">
                   <label for="genre">Genre</label>
-                  <select
-                    name="genre"
-                    id="genre"
-                    onChange={this.handleChange}
-                    value={this.state.genre}
-                  >
-                    {GENRES.map(({ id, name, slug }, index) => (
-                      <option key={id} value={slug}>
+                  <select name="genre" id="genre" onChange={this.handleChange} value={this.state.genre}>
+                    {Object.entries(GENRES).map(([id, { slug, name }], index) => (
+                      <option key={slug} value={id}>
                         {name}
                       </option>
                     ))}
@@ -174,12 +184,7 @@ class IndexPage extends Component {
 
                 <div className="column">
                   <label for="rt">Rotten Tomatoes</label>
-                  <select
-                    name="minimum_rt"
-                    id="minimum_rt"
-                    onChange={this.handleChange}
-                    value={this.state.minimum_rt}
-                  >
+                  <select name="minimum_rt" id="minimum_rt" onChange={this.handleChange} value={this.state.minimum_rt}>
                     {RT.map(({ id, name }, index) => (
                       <option key={name} value={id}>
                         {name}
@@ -193,12 +198,7 @@ class IndexPage extends Component {
             <div className="row">
               <div className="column">
                 <label for="profile">Profile</label>
-                <select
-                  name="profile"
-                  id="profile"
-                  onChange={this.handleChange}
-                  value={this.state.profile}
-                >
+                <select name="profile" id="profile" onChange={this.handleChange} value={this.state.profile}>
                   {Object.keys(PROFILES).map((key, index) => (
                     <option key={key} value={PROFILES[key]}>
                       {key}
@@ -210,17 +210,15 @@ class IndexPage extends Component {
           )}
 
           <div className="text-right">
-            <button
-              type="submit"
-              className="button"
-              disabled={this.state.isLoading}
-            >
+            <button type="submit" className="button" disabled={this.state.isLoading}>
               Search
             </button>
           </div>
         </form>
         <hr />
-        <Recommendation ref="Recommendation" />
+        <Recommendation ref={ref => (this.Recommendation = ref)} />
+        <br />
+        <br />
       </main>
     );
   }
@@ -231,33 +229,67 @@ class Recommendation extends Component {
     super(props);
     this.state = {
       isLoading: false,
-      content: null
+      result: {}
     };
   }
 
-  addContent(content) {
+  addContent(result) {
     this.setState({
-      content
+      result
     });
   }
 
   render() {
+    const { result, isLoading } = this.state;
+    const { id, rt_critics_rating, title, released_on, imdb_rating, season_count, overview, slug } = result;
+    const contentKind = Boolean(season_count) ? "show" : "movie";
+
     return (
       <section>
-        {(this.state.isLoading && (
+        {(isLoading && (
           <section className="text-center">
-            <ReactLoading
-              className="block-center"
-              type="bars"
-              color="#1d6dcd"
-              height="15rem"
-              width="15rem"
-              delay="0"
-            />
+            <ReactLoading className="block-center" type="bars" color="#1d6dcd" height="15rem" width="15rem" delay="0" />
           </section>
         )) || (
           <section>
-            <div dangerouslySetInnerHTML={{ __html: this.state.content }} />
+            {id && (
+              <div>
+                <img
+                  height={350}
+                  width="auto"
+                  src={`https://img.reelgood.com/content/${contentKind}/${id}/poster-780.jpg`}
+                />
+                <h4>{title}</h4>
+                <p>
+                  <span>
+                    {new Date(released_on).getFullYear()}
+                    &nbsp;
+                  </span>
+                  <span>
+                    {`IMDB: ${imdb_rating}/10`}
+                    &nbsp;
+                  </span>
+                  {rt_critics_rating && (
+                    <span>
+                      {`RT: ${rt_critics_rating}%`}
+                      &nbsp;
+                    </span>
+                  )}
+                  {season_count && (
+                    <span>
+                      {`${season_count} Seasons`}
+                      &nbsp;
+                    </span>
+                  )}
+                </p>
+                <p>{overview}</p>
+                {/* TODO: genres */}
+                {/* TODO: watch */}
+                <a className="button" target="_blank" href={`https://reelgood.com/${contentKind}/${slug}`}>
+                  Watch
+                </a>
+              </div>
+            )}
           </section>
         )}
       </section>
