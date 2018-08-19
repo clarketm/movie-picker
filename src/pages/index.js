@@ -248,7 +248,7 @@ class Recommendation extends Component {
 
   render() {
     const { result, isLoading } = this.state;
-    const { id, rt_critics_rating, title, released_on, imdb_rating, season_count, overview, slug } = result;
+    const { id, rt_critics_rating, title, released_on, imdb_rating, season_count, overview, slug, genres } = result;
     const contentKind = Boolean(season_count) ? "show" : "movie";
 
     return (
@@ -293,6 +293,7 @@ class Recommendation extends Component {
                       </span>
                     )}
                   </p>
+                  <p style={{ fontSize: "0.8em" }}>{genres.map((genre => GENRES[genre].name)).join(", ")}</p>
                   <p style={{ fontSize: "0.8em" }}>{overview}</p>
                   {/* TODO: genres */}
                   {/* TODO: watch */}
