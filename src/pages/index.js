@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { callApi, GENRES, IMDB, PROFILES, RT } from "../utils";
+import { callApi, callIMDBApi, callRTApi, createIMDBUrl, GENRES, IMDB, PROFILES, RT } from "../utils";
 import ReactLoading from "react-loading";
 
 class IndexPage extends Component {
@@ -65,10 +65,10 @@ class IndexPage extends Component {
 
     this.setLoading(true);
 
-    Promise.resolve(callApi(body)).then(result => {
-      console.log(result);
+    return callApi(body).then(response => {
+      console.log(response);
 
-      // result
+      // API response
       // {
       //   "id": "7f8f07f3-41a6-4aa3-8b6e-c456766d0e70",
       //   "slug": "railroad-tigers-2016",
@@ -88,7 +88,7 @@ class IndexPage extends Component {
       //   "content_type": "m"
       // }
 
-      this.state._Recommendation.addContent(result);
+      this.state._Recommendation.addContent(response);
       this.setLoading(false);
     });
   }
@@ -236,18 +236,32 @@ class Recommendation extends Component {
     super(props);
     this.state = {
       isLoading: false,
+      rtUrl: "",
+      imdbUrl: "",
       result: {}
     };
   }
 
+  fetchRottenTomatoes = title => {
+    return callRTApi(title).then(response => {
+      if (response.movies.length) {
+        this.setState({
+          rtUrl: response.movies[0].url
+        });
+      }
+    });
+  };
+
   addContent(result) {
+    this.fetchRottenTomatoes(result.title);
     this.setState({
-      result
+      result,
+      imdbUrl: createIMDBUrl(result.title)
     });
   }
 
   render() {
-    const { result, isLoading } = this.state;
+    const { result, isLoading, rtUrl, imdbUrl } = this.state;
     const { id, rt_critics_rating, title, released_on, imdb_rating, season_count, overview, slug, genres } = result;
     const contentKind = Boolean(season_count) ? "show" : "movie";
 
@@ -275,13 +289,25 @@ class Recommendation extends Component {
                       &nbsp; &nbsp;
                     </span>
                     <span>
-                      <span style={{ fontWeight: 400 }}>IMDB: </span>
+                      <span style={{ fontWeight: 400 }}>
+                        {(imdbUrl && (
+                          <a target="_blank" href={imdbUrl}>
+                            IMDB:&nbsp;
+                          </a>
+                        )) || <span>IMDB: </span>}
+                      </span>
                       {`${imdb_rating}/10`}
                       &nbsp; &nbsp;
                     </span>
                     {rt_critics_rating && (
                       <span>
-                        <span style={{ fontWeight: 400 }}>RT: </span>
+                        <span style={{ fontWeight: 400 }}>
+                          {(rtUrl && (
+                            <a target="_blank" href={`https://www.rottentomatoes.com${rtUrl}`}>
+                              RT:&nbsp;
+                            </a>
+                          )) || <span>RT: </span>}
+                        </span>
                         {`${rt_critics_rating}%`}
                         &nbsp; &nbsp;
                       </span>
@@ -293,7 +319,7 @@ class Recommendation extends Component {
                       </span>
                     )}
                   </p>
-                  <p style={{ fontSize: "0.8em" }}>{genres.map((genre => GENRES[genre].name)).join(", ")}</p>
+                  <p style={{ fontSize: "0.8em" }}>{genres.map(genre => GENRES[genre].name).join(", ")}</p>
                   <p style={{ fontSize: "0.8em" }}>{overview}</p>
                   {/* TODO: genres */}
                   {/* TODO: watch */}

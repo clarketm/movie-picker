@@ -96,6 +96,11 @@ export const RT = [
   }
 ];
 
+const REQUEST_DEFAULTS = {
+  mode: "cors",
+  cache: "default"
+};
+
 export const API_URL = "https://wt-ed59ec259186359bcf843a1acdd3d65e-0.run.webtask.io/movie-picker";
 
 export const callApi = jsonData => {
@@ -104,12 +109,30 @@ export const callApi = jsonData => {
     headers: new Headers({
       "Content-Type": "application/json"
     }),
-    mode: "cors",
-    cache: "default",
+    ...REQUEST_DEFAULTS,
     body: JSON.stringify(jsonData)
   })
     .then(response => {
       return response;
     })
     .catch(error => ({ error: error.message }));
+};
+
+export const RT_API_URL = "https://www.rottentomatoes.com/api/private/v2.0/search";
+
+export const callRTApi = query => {
+  return request(`${RT_API_URL}?limit=1&q=${encodeURIComponent(query)}`, {
+    method: "GET",
+    ...REQUEST_DEFAULTS
+  })
+    .then(response => {
+      return response;
+    })
+    .catch(error => ({ error: error.message }));
+};
+
+export const IMDB_API_URL = "https://www.imdb.com/find";
+
+export const createIMDBUrl = query => {
+  return `${IMDB_API_URL}?ref_=nv_sr_fn&s=all&q=${encodeURIComponent(query)}`;
 };
