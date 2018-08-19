@@ -121,7 +121,11 @@ export const callApi = jsonData => {
 export const RT_API_URL = "https://www.rottentomatoes.com/api/private/v2.0/search";
 
 export const callRTApi = query => {
-  return request(`${RT_API_URL}?limit=1&q=${encodeURIComponent(query)}`, {
+  let url = new URL(RT_API_URL);
+  url.searchParams.append("limit", 1);
+  url.searchParams.append("q", query);
+
+  return request(url.toString(), {
     method: "GET",
     ...REQUEST_DEFAULTS
   })
@@ -134,5 +138,10 @@ export const callRTApi = query => {
 export const IMDB_API_URL = "https://www.imdb.com/find";
 
 export const createIMDBUrl = query => {
-  return `${IMDB_API_URL}?ref_=nv_sr_fn&s=all&q=${encodeURIComponent(query)}`;
+  let url = new URL(IMDB_API_URL);
+  url.searchParams.append("ref_", "nv_sr_fn");
+  url.searchParams.append("s", "all");
+  url.searchParams.append("q", query);
+
+  return url.toString();
 };
