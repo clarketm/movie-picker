@@ -41,7 +41,7 @@ class IndexPage extends Component {
       params.append("profile", this.state.profile);
     } else {
       // genre
-      if (this.state.genre !== -1) {
+      if (this.state.genre !== "all") {
         params.append("genre", this.state.genre);
       }
 
@@ -123,7 +123,7 @@ class IndexPage extends Component {
                     value={this.state.genre}
                   >
                     {GENRES.map(({ id, name, slug }, index) => (
-                      <option key={slug} value={id}>
+                      <option key={id} value={slug}>
                         {name}
                       </option>
                     ))}
