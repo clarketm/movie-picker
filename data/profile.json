@@ -52,8 +52,8 @@
       ]
     ],
     "content_kind": "movie",
-    "minimum_imdb": 9,
-    "minimum_rt": 90
+    "minimum_imdb": 8,
+    "minimum_rt": 80
   },
   {
     "name": "eric",
