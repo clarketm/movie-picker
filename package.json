@@ -1,7 +1,7 @@
 {
   "name": "movie-picker",
   "description": "Movie Picker",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": "Travis Clarke <travis.m.clarke@gmail.com>",
   "dependencies": {
     "gatsby": "^1.9.277",
@@ -28,7 +28,9 @@
     "css": "node-sass src/css/style.scss src/css/style.css --output-style compressed",
     "develop": "gatsby develop",
     "format": "prettier --write 'src/**/*.js'",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepublishOnly": "yarn css && yarn build",
+    "publish": "surge public movie.travismclarke.com"
   },
   "devDependencies": {
     "node-sass": "^4.9.3",
