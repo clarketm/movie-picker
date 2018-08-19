@@ -28,7 +28,9 @@
     "css": "node-sass src/css/style.scss src/css/style.css --output-style compressed",
     "develop": "gatsby develop",
     "format": "prettier --write 'src/**/*.js'",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "predeploy": "yarn css && yarn build",
+    "deploy": "surge public movie.travismclarke.com"
   },
   "devDependencies": {
     "node-sass": "^4.9.3",
