@@ -110,116 +110,122 @@ class IndexPage extends Component {
 
   render() {
     return (
-      <main>
-        <form className="container" onSubmit={this.handleSubmit}>
-          <div className="row text-right">
-            <div className="column">
-              <label for="movie">Customize pick?</label>
-              <input
-                name="custom"
-                id="custom"
-                onChange={this.handleChange}
-                type="checkbox"
-                value={this.state.custom}
-                checked={this.state.custom}
-              />
-            </div>
-          </div>
-
-          {(this.state.custom && (
-            <div>
-              <div className="row">
-                <div className="column">
-                  <label for="genre">Genre</label>
-                  <select name="genre" id="genre" onChange={this.handleChange} value={this.state.genre}>
-                    {Object.entries(GENRES).map(([id, { slug, name }], index) => (
-                      <option key={slug} value={id}>
-                        {name}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-                <div className="column">
-                  <label for="movie">Movies?</label>
-                  <input
-                    name="movie"
-                    id="movie"
-                    onChange={this.handleChange}
-                    type="checkbox"
-                    value={this.state.movie}
-                    checked={this.state.movie}
-                  />
-                  <br />
-                </div>
-
-                <div className="column">
-                  <label for="show">TV Shows?</label>
-                  <input
-                    name="show"
-                    id="show"
-                    onChange={this.handleChange}
-                    type="checkbox"
-                    value={this.state.show}
-                    checked={this.state.show}
-                  />
-                </div>
-              </div>
-
-              <div className="row">
-                <div className="column">
-                  <label for="imdb">IMDB</label>
-                  <select
-                    name="minimum_imdb"
-                    id="minimum_imdb"
-                    onChange={this.handleChange}
-                    value={this.state.minimum_imdb}
-                  >
-                    {IMDB.map(({ id, name }, index) => (
-                      <option key={name} value={id}>
-                        {name}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-
-                <div className="column">
-                  <label for="rt">Rotten Tomatoes</label>
-                  <select name="minimum_rt" id="minimum_rt" onChange={this.handleChange} value={this.state.minimum_rt}>
-                    {RT.map(({ id, name }, index) => (
-                      <option key={name} value={id}>
-                        {name}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-              </div>
-            </div>
-          )) || (
-            <div className="row">
+      <div className="row">
+        <div className="column text-center">
+          <form className="container" onSubmit={this.handleSubmit}>
+            <div className="row text-right">
               <div className="column">
-                <label for="profile">Profile</label>
-                <select name="profile" id="profile" onChange={this.handleChange} value={this.state.profile}>
-                  {Object.keys(PROFILES).map((key, index) => (
-                    <option key={key} value={PROFILES[key]}>
-                      {key}
-                    </option>
-                  ))}
-                </select>
+                <label for="movie">Customize pick?</label>
+                <input
+                  name="custom"
+                  id="custom"
+                  onChange={this.handleChange}
+                  type="checkbox"
+                  value={this.state.custom}
+                  checked={this.state.custom}
+                />
               </div>
             </div>
-          )}
 
-          <div className="text-right">
-            <button type="submit" className="button" disabled={this.state.isLoading}>
-              Search
-            </button>
-          </div>
-        </form>
-        <hr />
-        <Recommendation ref={ref => (this.Recommendation = ref)} />
-        <br />
-        <br />
-      </main>
+            {(this.state.custom && (
+              <div>
+                <div className="row">
+                  <div className="column">
+                    <label for="genre">Genre</label>
+                    <select name="genre" id="genre" onChange={this.handleChange} value={this.state.genre}>
+                      {Object.entries(GENRES).map(([id, { slug, name }], index) => (
+                        <option key={slug} value={id}>
+                          {name}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                  <div className="column">
+                    <label for="movie">Movies?</label>
+                    <input
+                      name="movie"
+                      id="movie"
+                      onChange={this.handleChange}
+                      type="checkbox"
+                      value={this.state.movie}
+                      checked={this.state.movie}
+                    />
+                    <br />
+                  </div>
+
+                  <div className="column">
+                    <label for="show">TV Shows?</label>
+                    <input
+                      name="show"
+                      id="show"
+                      onChange={this.handleChange}
+                      type="checkbox"
+                      value={this.state.show}
+                      checked={this.state.show}
+                    />
+                  </div>
+                </div>
+
+                <div className="row">
+                  <div className="column">
+                    <label for="imdb">IMDB</label>
+                    <select
+                      name="minimum_imdb"
+                      id="minimum_imdb"
+                      onChange={this.handleChange}
+                      value={this.state.minimum_imdb}
+                    >
+                      {IMDB.map(({ id, name }, index) => (
+                        <option key={name} value={id}>
+                          {name}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+
+                  <div className="column">
+                    <label for="rt">Rotten Tomatoes</label>
+                    <select
+                      name="minimum_rt"
+                      id="minimum_rt"
+                      onChange={this.handleChange}
+                      value={this.state.minimum_rt}
+                    >
+                      {RT.map(({ id, name }, index) => (
+                        <option key={name} value={id}>
+                          {name}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+              </div>
+            )) || (
+              <div className="row">
+                <div className="column">
+                  <label for="profile">Profile</label>
+                  <select name="profile" id="profile" onChange={this.handleChange} value={this.state.profile}>
+                    {Object.keys(PROFILES).map((key, index) => (
+                      <option key={key} value={PROFILES[key]}>
+                        {key}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+            )}
+
+            <div className="text-right">
+              <button type="submit" className="button" disabled={this.state.isLoading}>
+                Search
+              </button>
+            </div>
+          </form>
+        </div>
+        <div className="column text-center">
+          <Recommendation ref={ref => (this.Recommendation = ref)} />
+        </div>
+      </div>
     );
   }
 }
@@ -253,41 +259,44 @@ class Recommendation extends Component {
         )) || (
           <section>
             {id && (
-              <div>
-                <img
-                  height={350}
-                  width="auto"
-                  src={`https://img.reelgood.com/content/${contentKind}/${id}/poster-780.jpg`}
-                />
-                <h4>{title}</h4>
-                <p>
-                  <span>
-                    {new Date(released_on).getFullYear()}
-                    &nbsp;
-                  </span>
-                  <span>
-                    {`IMDB: ${imdb_rating}/10`}
-                    &nbsp;
-                  </span>
-                  {rt_critics_rating && (
+              <div className="row">
+                <div className="column text-right mobile-center">
+                  <img
+                    className="thumbnail"
+                    src={`https://img.reelgood.com/content/${contentKind}/${id}/poster-780.jpg`}
+                  />
+                </div>
+                <div className="column">
+                  <h4>{title}</h4>
+                  <p>
                     <span>
-                      {`RT: ${rt_critics_rating}%`}
+                      {new Date(released_on).getFullYear()}
                       &nbsp;
                     </span>
-                  )}
-                  {season_count && (
                     <span>
-                      {`${season_count} Seasons`}
+                      {`IMDB: ${imdb_rating}/10`}
                       &nbsp;
                     </span>
-                  )}
-                </p>
-                <p>{overview}</p>
-                {/* TODO: genres */}
-                {/* TODO: watch */}
-                <a className="button" target="_blank" href={`https://reelgood.com/${contentKind}/${slug}`}>
-                  More Info
-                </a>
+                    {rt_critics_rating && (
+                      <span>
+                        {`RT: ${rt_critics_rating}%`}
+                        &nbsp;
+                      </span>
+                    )}
+                    {season_count && (
+                      <span>
+                        {`${season_count} Seasons`}
+                        &nbsp;
+                      </span>
+                    )}
+                  </p>
+                  <p>{overview}</p>
+                  {/* TODO: genres */}
+                  {/* TODO: watch */}
+                  <a className="button" target="_blank" href={`https://reelgood.com/${contentKind}/${slug}`}>
+                    More Info
+                  </a>
+                </div>
               </div>
             )}
           </section>

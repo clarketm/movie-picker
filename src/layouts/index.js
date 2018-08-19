@@ -12,6 +12,24 @@ const Header = () => {
   );
 };
 
+const Footer = () => {
+  return (
+    <footer id="footer">
+      <p>
+        © 2018{" "}
+        <span itemProp="author" itemScope="" itemType="https://schema.org/Person">
+          <span itemProp="name">Travis Clarke</span>
+        </span>
+        .
+        <a href="https://www.apache.org/licenses/LICENSE-2.0.html" title="Apache-2.0">
+          Some rights reserved
+        </a>
+        .
+      </p>
+    </footer>
+  );
+};
+
 const TemplateWrapper = ({ children }) => {
   return (
     <main>
@@ -29,6 +47,7 @@ const TemplateWrapper = ({ children }) => {
       <section id="main" className="container">
         {children()}
       </section>
+      <Footer />
     </main>
   );
 };
