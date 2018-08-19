@@ -20,197 +20,169 @@ export const GENRES = [
     id: 5,
     name: "Action & Adventure",
     content_kind: "both",
-    slug: "action-and-adventure",
-    hidden: false
+    slug: "action-and-adventure"
   },
   {
     id: 6,
     name: "Animation",
     content_kind: "both",
-    slug: "animation",
-    hidden: false
+    slug: "animation"
   },
   {
     id: 39,
     name: "Anime",
     content_kind: "both",
-    slug: "anime",
-    hidden: false
+    slug: "anime"
   },
   {
     id: 7,
     name: "Biography",
     content_kind: "movie",
-    slug: "biography",
-    hidden: false
+    slug: "biography"
   },
   {
     id: 8,
     name: "Children",
     content_kind: "both",
-    slug: "children",
-    hidden: false
+    slug: "children"
   },
   {
     id: 10,
     name: "Crime",
     content_kind: "both",
-    slug: "crime",
-    hidden: false
+    slug: "crime"
   },
   {
     id: 41,
     name: "Cult",
     content_kind: "movie",
-    slug: "cult",
-    hidden: false
+    slug: "cult"
   },
   {
     id: 9,
     name: "Comedy",
     content_kind: "both",
-    slug: "comedy",
-    hidden: false
+    slug: "comedy"
   },
   {
     id: 11,
     name: "Documentary",
     content_kind: "both",
-    slug: "documentary",
-    hidden: false
+    slug: "documentary"
   },
   {
     id: 3,
     name: "Drama",
     content_kind: "both",
-    slug: "drama",
-    hidden: false
+    slug: "drama"
   },
   {
     id: 12,
     name: "Family",
     content_kind: "both",
-    slug: "family",
-    hidden: false
+    slug: "family"
   },
   {
     id: 13,
     name: "Fantasy",
     content_kind: "both",
-    slug: "fantasy",
-    hidden: false
+    slug: "fantasy"
   },
   {
     id: 15,
     name: "Food",
     content_kind: "show",
-    slug: "food",
-    hidden: false
+    slug: "food"
   },
   {
     id: 16,
     name: "Game Show",
     content_kind: "show",
-    slug: "game-show",
-    hidden: false
+    slug: "game-show"
   },
   {
     id: 17,
     name: "History",
     content_kind: "both",
-    slug: "history",
-    hidden: false
+    slug: "history"
   },
   {
     id: 18,
     name: "Home & Garden",
     content_kind: "show",
-    slug: "home-and-garden",
-    hidden: false
+    slug: "home-and-garden"
   },
   {
     id: 19,
     name: "Horror",
     content_kind: "both",
-    slug: "horror",
-    hidden: false
+    slug: "horror"
   },
   {
     id: 43,
     name: "Independent",
     content_kind: "movie",
-    slug: "independent",
-    hidden: false
+    slug: "independent"
   },
   {
     id: 37,
     name: "LGBTQ",
     content_kind: "both",
-    slug: "lgbtq",
-    hidden: false
+    slug: "lgbtq"
   },
   {
     id: 22,
     name: "Musical",
     content_kind: "movie",
-    slug: "musical",
-    hidden: false
+    slug: "musical"
   },
   {
     id: 23,
     name: "Mystery",
     content_kind: "both",
-    slug: "mystery",
-    hidden: false
+    slug: "mystery"
   },
   {
     id: 25,
     name: "Reality",
     content_kind: "show",
-    slug: "reality",
-    hidden: false
+    slug: "reality"
   },
   {
     id: 4,
     name: "Romance",
     content_kind: "movie",
-    slug: "romance",
-    hidden: false
+    slug: "romance"
   },
   {
     id: 26,
     name: "Science-Fiction",
     content_kind: "both",
-    slug: "science-fiction",
-    hidden: false
+    slug: "science-fiction"
   },
   {
     id: 29,
     name: "Sport",
     content_kind: "both",
-    slug: "sport",
-    hidden: false
+    slug: "sport"
   },
   {
     id: 45,
     name: "Stand-up & Talk",
     content_kind: "both",
-    slug: "stand-up-and-talk",
-    hidden: false
+    slug: "stand-up-and-talk"
   },
   {
     id: 32,
     name: "Thriller",
     content_kind: "movie",
-    slug: "thriller",
-    hidden: false
+    slug: "thriller"
   },
   {
     id: 33,
     name: "Travel",
     content_kind: "show",
-    slug: "travel",
-    hidden: false
+    slug: "travel"
   }
 ];
 
