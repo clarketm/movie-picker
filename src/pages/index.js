@@ -111,7 +111,7 @@ class IndexPage extends Component {
   render() {
     return (
       <div className="row">
-        <div className="column text-center">
+        <div className="column">
           <form className="container" onSubmit={this.handleSubmit}>
             <div className="row text-right">
               <div className="column">
@@ -222,6 +222,7 @@ class IndexPage extends Component {
             </div>
           </form>
         </div>
+        <br className="mobile-only" />
         <div className="column text-center">
           <Recommendation ref={ref => (this.Recommendation = ref)} />
         </div>
