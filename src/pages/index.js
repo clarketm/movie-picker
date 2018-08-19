@@ -286,7 +286,7 @@ class Recommendation extends Component {
                 {/* TODO: genres */}
                 {/* TODO: watch */}
                 <a className="button" target="_blank" href={`https://reelgood.com/${contentKind}/${slug}`}>
-                  Watch
+                  More Info
                 </a>
               </div>
             )}
