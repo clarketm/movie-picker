@@ -271,16 +271,18 @@ class Recommendation extends Component {
                   <p>
                     <span>
                       {new Date(released_on).getFullYear()}
-                      &nbsp;
+                      &nbsp; &nbsp;
                     </span>
                     <span>
-                      {`IMDB: ${imdb_rating}/10`}
-                      &nbsp;
+                      <span style={{ fontWeight: 400 }}>IMDB: </span>
+                      {`${imdb_rating}/10`}
+                      &nbsp; &nbsp;
                     </span>
                     {rt_critics_rating && (
                       <span>
-                        {`RT: ${rt_critics_rating}%`}
-                        &nbsp;
+                        <span style={{ fontWeight: 400 }}>RT: </span>
+                        {`${rt_critics_rating}%`}
+                        &nbsp; &nbsp;
                       </span>
                     )}
                     {season_count && (
@@ -290,7 +292,7 @@ class Recommendation extends Component {
                       </span>
                     )}
                   </p>
-                  <p>{overview}</p>
+                  <p style={{ fontSize: "0.8em" }}>{overview}</p>
                   {/* TODO: genres */}
                   {/* TODO: watch */}
                   <a className="button" target="_blank" href={`https://reelgood.com/${contentKind}/${slug}`}>
