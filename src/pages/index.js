@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { callApi, GENRES, PROFILES, RATINGS } from "../utils";
+import { callApi, GENRES, IMDB, PROFILES, RT } from "../utils";
 import ReactLoading from "react-loading";
 
 class IndexPage extends Component {
@@ -8,11 +8,11 @@ class IndexPage extends Component {
     this.state = {
       profile: "default",
       custom: false,
-      genre: "all",
-      movies: true,
-      tv: false,
-      lowrating: "1.0",
-      highrating: "5.0",
+      genre: -1,
+      movie: true,
+      show: false,
+      minimum_imdb: 9,
+      minimum_rt: 90,
       director: "",
       actor: "",
       keyword: "",
@@ -40,15 +40,32 @@ class IndexPage extends Component {
     if (!this.state.custom) {
       params.append("profile", this.state.profile);
     } else {
-      params.append("genre", this.state.genre);
-      params.append("movies", this.state.movies);
-      params.append("tv", this.state.tv);
-      params.append("lowrating", this.state.lowrating);
-      params.append("highrating", this.state.highrating);
-      params.append("director", this.state.director);
-      params.append("actor", this.state.actor);
-      params.append("keyword", this.state.keyword);
+      // genre
+      if (this.state.genre !== -1) {
+        params.append("genre", this.state.genre);
+      }
+
+      // content_kind
+      if (this.state.movie && this.state.show) {
+        params.append("content_kind", "both");
+      } else if (this.state.movie) {
+        params.append("content_kind", "movie");
+      } else if (this.state.show) {
+        params.append("content_kind", "show");
+      }
+
+      // minimum_imdb
+      if (this.state.minimum_imdb !== -1) {
+        params.append("minimum_imdb", this.state.minimum_imdb);
+      }
+
+      // minimum_rt
+      if (this.state.minimum_imdb !== -1) {
+        params.append("minimum_rt", this.state.minimum_rt);
+      }
     }
+
+    console.log(params.toString());
 
     this.setLoading(true);
     Promise.resolve(callApi(params)).then(result => {
@@ -63,6 +80,15 @@ class IndexPage extends Component {
     const value = target.type === "checkbox" ? target.checked : target.value;
     const name = target.name;
 
+    if (
+      target.type === "checkbox" &&
+      this.state.movie !== this.state.show &&
+      value === false
+    ) {
+      // Ensure at least one "content_kind" is selected!
+      return;
+    }
+
     this.setState({
       [name]: value
     });
@@ -74,7 +100,7 @@ class IndexPage extends Component {
         <form className="container" onSubmit={this.handleSubmit}>
           <div className="row text-right">
             <div className="column">
-              <label for="movies">Customize pick?</label>
+              <label for="movie">Customize pick?</label>
               <input
                 name="custom"
                 id="custom"
@@ -96,103 +122,70 @@ class IndexPage extends Component {
                     onChange={this.handleChange}
                     value={this.state.genre}
                   >
-                    {Object.keys(GENRES).map((key, index) => (
-                      <option key={key} value={GENRES[key]}>
-                        {key}
+                    {GENRES.map(({ id, name, slug }, index) => (
+                      <option key={slug} value={id}>
+                        {name}
                       </option>
                     ))}
                   </select>
                 </div>
                 <div className="column">
-                  <label for="movies">Movies?</label>
+                  <label for="movie">Movies?</label>
                   <input
-                    name="movies"
-                    id="movies"
+                    name="movie"
+                    id="movie"
                     onChange={this.handleChange}
                     type="checkbox"
-                    value={this.state.movies}
+                    value={this.state.movie}
+                    checked={this.state.movie}
                   />
                   <br />
                 </div>
 
                 <div className="column">
-                  <label for="movies">TV Shows?</label>
+                  <label for="show">TV Shows?</label>
                   <input
-                    name="tv"
-                    id="tv"
+                    name="show"
+                    id="show"
                     onChange={this.handleChange}
                     type="checkbox"
-                    value={this.state.tv}
+                    value={this.state.show}
+                    checked={this.state.show}
                   />
                 </div>
               </div>
 
               <div className="row">
                 <div className="column">
-                  <label for="lowrating">Lowest rating</label>
+                  <label for="imdb">IMDB</label>
                   <select
-                    name="lowrating"
-                    id="lowrating"
+                    name="minimum_imdb"
+                    id="minimum_imdb"
                     onChange={this.handleChange}
-                    value={this.state.lowrating}
+                    value={this.state.minimum_imdb}
                   >
-                    {RATINGS.map((value, index) => (
-                      <option key={index} value={value}>
-                        {value}
+                    {IMDB.map(({ id, name }, index) => (
+                      <option key={name} value={id}>
+                        {name}
                       </option>
                     ))}
                   </select>
                 </div>
 
                 <div className="column">
-                  <label for="highrating">Highest rating</label>
+                  <label for="rt">Rotten Tomatoes</label>
                   <select
-                    name="highrating"
-                    id="highrating"
+                    name="minimum_rt"
+                    id="minimum_rt"
                     onChange={this.handleChange}
-                    value={this.state.highrating}
+                    value={this.state.minimum_rt}
                   >
-                    {RATINGS.map((value, index) => (
-                      <option key={index} value={value}>
-                        {value}
+                    {RT.map(({ id, name }, index) => (
+                      <option key={name} value={id}>
+                        {name}
                       </option>
                     ))}
                   </select>
-                </div>
-              </div>
-
-              <div className="row">
-                <div className="column">
-                  <label for="director">Director</label>
-                  <input
-                    name="director"
-                    id="director"
-                    onChange={this.handleChange}
-                    type="text"
-                    value={this.state.director}
-                  />
-                </div>
-
-                <div className="column">
-                  <label for="actor">Actor</label>
-                  <input
-                    name="actor"
-                    id="actor"
-                    onChange={this.handleChange}
-                    type="text"
-                    value={this.state.actor}
-                  />
-                </div>
-
-                <div className="column">
-                  <label for="keyword">Keyword</label>
-                  <input
-                    name="keyword"
-                    id="keyword"
-                    onChange={this.handleChange}
-                    type="text"
-                    value={this.state.keyword}
-                  />
                 </div>
               </div>
             </div>
