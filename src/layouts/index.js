@@ -26,6 +26,7 @@ const Footer = () => {
         </a>
         .
       </p>
+      <br />
     </footer>
   );
 };
