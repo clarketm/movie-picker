@@ -7,7 +7,8 @@ export const PROFILES = {
   Travis: "travis",
   Jade: "jade",
   Eric: "eric",
-  Terri: "terri"
+  Terri: "terri",
+  Gayla: "gayla"
 };
 
 export const GENRES = {
@@ -118,21 +119,29 @@ export const callApi = jsonData => {
     .catch(error => ({ error: error.message }));
 };
 
-export const RT_API_URL = "https://www.rottentomatoes.com/api/private/v2.0/search";
+// export const RT_API_URL = "https://www.rottentomatoes.com/api/private/v2.0/search";
 
-export const callRTApi = query => {
+// export const callRTApi = query => {
+//   let url = new URL(RT_API_URL);
+//   url.searchParams.append("limit", 1);
+//   url.searchParams.append("q", query);
+//
+//   return request(url.toString(), {
+//     method: "GET",
+//     ...REQUEST_DEFAULTS
+//   })
+//     .then(response => {
+//       return response;
+//     })
+//     .catch(error => ({ error: error.message }));
+// };
+
+export const RT_API_URL = "https://www.rottentomatoes.com/search/";
+
+export const createRTUrl = query => {
   let url = new URL(RT_API_URL);
-  url.searchParams.append("limit", 1);
-  url.searchParams.append("q", query);
-
-  return request(url.toString(), {
-    method: "GET",
-    ...REQUEST_DEFAULTS
-  })
-    .then(response => {
-      return response;
-    })
-    .catch(error => ({ error: error.message }));
+  url.searchParams.append("search", query);
+  return url.toString();
 };
 
 export const IMDB_API_URL = "https://www.imdb.com/find";

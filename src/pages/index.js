@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { callApi, callIMDBApi, callRTApi, createIMDBUrl, GENRES, IMDB, PROFILES, RT } from "../utils";
+import { callApi, callIMDBApi, callRTApi, createIMDBUrl, createRTUrl, GENRES, IMDB, PROFILES, RT } from "../utils";
 import ReactLoading from "react-loading";
 
 class IndexPage extends Component {
@@ -242,21 +242,22 @@ class Recommendation extends Component {
     };
   }
 
-  fetchRottenTomatoes = title => {
-    return callRTApi(title).then(response => {
-      if (response.movies.length) {
-        this.setState({
-          rtUrl: response.movies[0].url
-        });
-      }
-    });
-  };
+  // fetchRottenTomatoes = title => {
+  //   return callRTApi(title).then(response => {
+  //     if (response.movies.length) {
+  //       this.setState({
+  //         rtUrl: response.movies[0].url
+  //       });
+  //     }
+  //   });
+  // };
 
   addContent(result) {
-    this.fetchRottenTomatoes(result.title);
+    // this.fetchRottenTomatoes(result.title);
     this.setState({
       result,
-      imdbUrl: createIMDBUrl(result.title)
+      imdbUrl: createIMDBUrl(result.title),
+      rtUrl: createRTUrl(result.title)
     });
   }
 
@@ -303,7 +304,7 @@ class Recommendation extends Component {
                       <span>
                         <span style={{ fontWeight: 400 }}>
                           {(rtUrl && (
-                            <a target="_blank" href={`https://www.rottentomatoes.com${rtUrl}`}>
+                            <a target="_blank" href={rtUrl}>
                               RT:&nbsp;
                             </a>
                           )) || <span>RT: </span>}
