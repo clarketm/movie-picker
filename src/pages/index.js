@@ -65,9 +65,7 @@ class IndexPage extends Component {
 
     this.setLoading(true);
 
-    return callApi(body).then(response => {
-      console.log(response);
-
+    return (this.callApi = () => {
       // API response
       // {
       //   "id": "7f8f07f3-41a6-4aa3-8b6e-c456766d0e70",
@@ -88,9 +86,17 @@ class IndexPage extends Component {
       //   "content_type": "m"
       // }
 
-      this.state._Recommendation.addContent(response);
-      this.setLoading(false);
-    });
+      return callApi(body).then(response => {
+        if (Object.keys(response).length <= 0) {
+          console.log("retrying...");
+          return this.callApi();
+        } else {
+          console.log("success:", response);
+          this.state._Recommendation.addContent(response);
+          this.setLoading(false);
+        }
+      });
+    })();
   }
 
   handleChange(event) {
@@ -115,7 +121,7 @@ class IndexPage extends Component {
           <form className="container" onSubmit={this.handleSubmit}>
             <div className="row text-right">
               <div className="column">
-                <label for="movie">Customize pick?</label>
+                <label htmlFor="movie">Customize pick?</label>
                 <input
                   name="custom"
                   id="custom"
@@ -131,7 +137,7 @@ class IndexPage extends Component {
               <div>
                 <div className="row">
                   <div className="column">
-                    <label for="genre">Genre</label>
+                    <label htmlFor="genre">Genre</label>
                     <select name="genre" id="genre" onChange={this.handleChange} value={this.state.genre}>
                       {Object.entries(GENRES).map(([id, { slug, name }], index) => (
                         <option key={slug} value={id}>
@@ -141,7 +147,7 @@ class IndexPage extends Component {
                     </select>
                   </div>
                   <div className="column">
-                    <label for="movie">Movies?</label>
+                    <label htmlFor="movie">Movies?</label>
                     <input
                       name="movie"
                       id="movie"
@@ -154,7 +160,7 @@ class IndexPage extends Component {
                   </div>
 
                   <div className="column">
-                    <label for="show">TV Shows?</label>
+                    <label htmlFor="show">TV Shows?</label>
                     <input
                       name="show"
                       id="show"
@@ -168,7 +174,7 @@ class IndexPage extends Component {
 
                 <div className="row">
                   <div className="column">
-                    <label for="imdb">IMDB</label>
+                    <label htmlFor="imdb">IMDB</label>
                     <select
                       name="minimum_imdb"
                       id="minimum_imdb"
@@ -184,7 +190,7 @@ class IndexPage extends Component {
                   </div>
 
                   <div className="column">
-                    <label for="rt">Rotten Tomatoes</label>
+                    <label htmlFor="rt">Rotten Tomatoes</label>
                     <select
                       name="minimum_rt"
                       id="minimum_rt"
@@ -203,7 +209,7 @@ class IndexPage extends Component {
             )) || (
               <div className="row">
                 <div className="column">
-                  <label for="profile">Profile</label>
+                  <label htmlFor="profile">Profile</label>
                   <select name="profile" id="profile" onChange={this.handleChange} value={this.state.profile}>
                     {Object.keys(PROFILES).map((key, index) => (
                       <option key={key} value={PROFILES[key]}>
@@ -216,7 +222,12 @@ class IndexPage extends Component {
             )}
 
             <div className="text-right">
-              <button type="submit" className="button" disabled={this.state.isLoading}>
+              <button
+                ref={ref => (this.searchSubmit = ref)}
+                type="submit"
+                className="button"
+                disabled={this.state.isLoading}
+              >
                 Search
               </button>
             </div>
@@ -270,7 +281,7 @@ class Recommendation extends Component {
       <section>
         {(isLoading && (
           <section className="text-center">
-            <ReactLoading className="block-center" type="bars" color="#1d6dcd" height="15rem" width="15rem" delay="0" />
+            <ReactLoading className="block-center" type="bars" color="#1d6dcd" height="15rem" width="15rem" delay={0} />
           </section>
         )) || (
           <section>
@@ -320,9 +331,13 @@ class Recommendation extends Component {
                       </span>
                     )}
                   </p>
-                  <p style={{ fontSize: "0.8em" }}>{genres.map(genre => GENRES[genre].name).join(", ")}</p>
+                  <p style={{ fontSize: "0.8em" }}>
+                    {genres
+                      .map(genre => GENRES[genre] && GENRES[genre].name)
+                      .filter(g => g)
+                      .join(", ")}
+                  </p>
                   <p style={{ fontSize: "0.8em" }}>{overview}</p>
-                  {/* TODO: genres */}
                   {/* TODO: watch */}
                   <a className="button" target="_blank" href={`https://reelgood.com/${contentKind}/${slug}`}>
                     More Info
