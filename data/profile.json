@@ -104,6 +104,34 @@
     "minimum_rt": 60
   },
   {
+    "name": "gayla",
+    "genre": [
+      [
+        "action-and-adventure",
+        1
+      ],
+      [
+        "horror",
+        1
+      ],
+      [
+        "children",
+        1
+      ],
+      [
+        "crime",
+        1
+      ],
+      [
+        "comedy",
+        1
+      ]
+    ],
+    "content_kind": "movie",
+    "minimum_imdb": 6,
+    "minimum_rt": 60
+  },
+  {
     "name": "default",
     "genre": 0,
     "content_kind": "movie",
